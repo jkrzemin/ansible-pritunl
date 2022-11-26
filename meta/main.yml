@@ -1,0 +1,19 @@
+galaxy_info:
+  role_name: pritunl
+  author: Jakub Krzemiński
+  namespace: jkrzemin
+  description: Installation and configuration of Pritunl server
+
+  license: MIT
+
+  min_ansible_version: '2.1'
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+
+  galaxy_tags:
+  - pritunl
+  - vpn
+
+dependencies: []
