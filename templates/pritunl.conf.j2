@@ -1,0 +1,9 @@
+{
+    "debug": {{ pritunl_debug | lower }},
+    "bind_addr": "{{ pritunl_bind_address }}",
+    "port": {{ pritunl_port }},
+    "log_path": "{{ pritunl_log_path }}",
+    "temp_path": "/tmp/pritunl_%r",
+    "local_address_interface": "{{ pritunl_interface }}",
+    "mongodb_uri": "{{ pritunl_mongodb_uri }}"
+}

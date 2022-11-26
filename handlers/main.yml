@@ -1,2 +1,6 @@
 ---
 # handlers file for pritunl
+- name: Restart Pritunl
+  ansible.builtin.service:
+    name: pritunl
+    state: restarted

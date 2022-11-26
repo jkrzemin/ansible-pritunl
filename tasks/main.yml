@@ -1,2 +1,53 @@
 ---
 # tasks file for pritunl
+
+- name: Add Pritnul apt repository key
+  ansible.builtin.get_url:
+    url: "{{ pritunl_repo_key_url }}"
+    dest: /etc/apt/trusted.gpg.d/pritunl.asc
+    mode: '0644'
+    force: true
+
+- name: Add Pritunl deb repo
+  ansible.builtin.apt_repository:
+    repo: "deb {{ pritunl_apt_repository_repo }} {{ ansible_facts.distribution_release }} main"
+    state: present
+    filename: "{{ pritunl_apt_repo_file }}"
+    update_cache: true
+
+- name: Install Wireguard support
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: true
+  loop:
+  - wireguard
+  - wireguard-tools
+  when: pritunl_wireguard_enabled
+
+- name: Set number of files limits
+  community.general.pam_limits:
+    domain: '*'
+    limit_type: '-'
+    limit_item: nofile
+    value: 64000
+    use_max: true
+
+- name: Install Pritunl package
+  ansible.builtin.apt:
+    name: pritunl
+    update_cache: true
+
+- name: Configure Pritunl server
+  ansible.builtin.template:
+    src: pritunl.conf.j2
+    dest: /etc/pritunl.conf
+    owner: root
+    group: root
+    mode: 0664
+  notify: Restart Pritunl
+
+- name: Enable and start Pritunl service
+  ansible.builtin.service:
+    name: pritunl
+    enabled: true
+    state: started
