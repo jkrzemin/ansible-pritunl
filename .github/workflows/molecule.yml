@@ -30,4 +30,4 @@ jobs:
         run: "molecule lint"
 
       - name: Run molecule test
-        run: "molecule lint"
+        run: "molecule test"
