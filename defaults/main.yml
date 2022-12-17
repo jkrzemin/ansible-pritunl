@@ -1,2 +1,20 @@
 ---
 # defaults file for pritunl
+pritunl_apt_repo_file: pritunl
+pritunl_apt_repository_repo: http://repo.pritunl.com/stable/apt
+pritunl_repo_key_url: https://raw.githubusercontent.com/pritunl/pgp/master/pritunl_repo_pub.asc
+pritunl_wireguard_enabled: true
+
+pritunl_debug: false
+pritunl_bind_address: 0.0.0.0
+pritunl_port: 443
+pritunl_log_path: /var/log/pritunl.log
+pritunl_interface: auto
+pritunl_admin_password: 'pritunl'
+pritunl_mongodb_user: pritunl
+pritunl_mongodb_password: pritunl
+pritunl_mongodb_address: 127.0.0.1
+pritunl_mongodb_port: 27017
+pritunl_mongodb_database: pritunl
+pritunl_mongodb_auth_database: admin
+pritunl_mongodb_uri: 'mongodb://{{ pritunl_mongodb_user }}:{{ pritunl_mongodb_password }}@{{ pritunl_mongodb_address }}:{{ pritunl_mongodb_port }}/{{ pritunl_mongodb_database }}?authSource={{ pritunl_mongodb_auth_database }}'

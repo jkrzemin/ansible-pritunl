@@ -1,0 +1,21 @@
+---
+- name: Prepare
+  hosts: all
+  vars:
+    mongodb_security_authorization: "enabled"
+    mongodb_users:
+      - name: pritunl
+        password: pritunl
+        roles: readWrite
+        database: pritunl
+    mongodb_pymongo_pip_version: 4.3.3
+  tasks:
+    - name: "Install dirmngr"
+      ansible.builtin.apt:
+        name: dirmngr
+        state: present
+        update_cache: True
+      become: true
+    - name: "Include undergreen.mongodb"
+      ansible.builtin.include_role:
+        name: "undergreen.mongodb"
